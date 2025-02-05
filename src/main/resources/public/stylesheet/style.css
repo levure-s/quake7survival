@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+:root {
+  --primary-color: #ffd700; /* 黄金色 */
+  --background-color: #ffffff; /* 白 */
+  --text-color: #000000; /* 黒 */
+  --accent-color: #ffcc00; /* 明るめの黄色 */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+}
+
+.inner {
+  max-width: 1000px;
+  min-width: 220px;
+  margin: auto;
+  padding: 2em;
+}
+
+/* ヘッダー */
+.header {
+  background: #000;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* フッター */
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* メインコンテンツ */
+.main {
+  min-height: calc(100vh - 304px);
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 入力フォーム */
+.input {
+  text-align: center;
+}
+
+.input h2 {
+  padding-bottom: 1em;
+}
+
+.input input[type="number"] {
+  min-width: 3em;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Noto Serif JP", serif;
+  text-align: center;
+}
+
+.input input[type="number"]:focus {
+  outline: none;
+  border-color: black;
+  box-shadow: 0 0 5px black;
+}
+
+/* ボタン */
+.input input[type="submit"] {
+  min-width: 4em;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Noto Serif JP", serif;
+  transition: all 0.3s ease;
+}
+
+.input input[type="submit"]:hover {
+  background-color: #e6b800;
+}
+
+.input input[type="submit"]:active {
+  background-color: #b38f00;
+}
+
+/* 結果表示 */
+.result {
+  padding: 1em;
+}
+
+.result h2 {
+  padding-bottom: 1em;
+  color: black;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* 説明 */
+#description {
+  font-family: "Noto Serif JP", serif;
+  line-height: 1.5em;
+  color: black;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .input input {
+    width: 25%;
+  }
+}
+
+@media (max-width: 478px) {
+  .inner {
+    padding: 0;
+  }
+  .main {
+    min-height: calc(100vh - 146px);
+  }
+  .input input {
+    width: 50%;
+  }
+}
