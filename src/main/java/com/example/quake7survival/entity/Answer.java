@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Answer {
@@ -14,11 +12,10 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
-
     @Column(nullable = false)
+    private int questionId;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String explanation;
 
     @Column(name = "survival_rate_A", nullable = false)
@@ -30,23 +27,23 @@ public class Answer {
     @Column(name = "survival_rate_C", nullable = false)
     private int survivalRateC;
 
-    @Column(name = "survival_rate_D", nullable = false)
+    @Column(name = "survival_rate_D")
     private int survivalRateD;
 
     public Long getId() {
         return id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Question getQuestion() {
-        return question;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionId(int id) {
+        this.questionId = id;
     }
 
     public String getExplanation() {
