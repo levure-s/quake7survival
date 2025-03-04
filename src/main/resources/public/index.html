@@ -14,12 +14,88 @@
       </div>
     </header>
     <main class="main">
-      <div class="inner"></div>
+      <div class="inner">
+        <div id="question-container">
+          <p id="question" class="text-content">質問を取得中...</p>
+          <button id="show-answer-btn">答えを見る</button>
+          <div id="answer-container">
+            <p><strong>生存確率：</strong> <span id="survival-rate"></span></p>
+            <p class="text-content">
+              <strong>解説：</strong> <span id="explanation-text"></span>
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="footer">
       <div class="inner">
         <small>D1a2a</small>
       </div>
     </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const questionElement = document.getElementById("question");
+        const explanationElement = document.getElementById("explanation-text");
+        const survivalRateElement = document.getElementById("survival-rate");
+        const answerContainer = document.getElementById("answer-container");
+        const showAnswerButton = document.getElementById("show-answer-btn");
+
+        let questionId = 1; // 取得する質問のID（仮）
+
+        // 文字装飾処理（改行→<br>、**太文字**→<strong>）
+        function formatText(text) {
+          return text
+            .replace(/\\n/g, "<br>")
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+        }
+
+        try {
+          // **質問を取得**
+          const questionResponse = await fetch(`/question/${questionId}`);
+          if (!questionResponse.ok) throw new Error("質問の取得に失敗しました");
+          const questionData = await questionResponse.json();
+          questionElement.innerHTML = formatText(
+            `<strong>質問:</strong> ${questionData.text}`
+          );
+          showAnswerButton.classList.add("show");
+
+          // **ボタンのクリックで回答を取得**
+          showAnswerButton.addEventListener("click", async () => {
+            try {
+              const answerResponse = await fetch(`/answer/${questionId}`);
+              if (!answerResponse.ok)
+                throw new Error("回答の取得に失敗しました");
+
+              const answerData = await answerResponse.json();
+              explanationElement.innerHTML = formatText(
+                answerData.explanation || "説明がありません"
+              );
+
+              // **生存確率の表示**
+              let survivalText = `A: ${answerData.survivalRateA}% / B: ${answerData.survivalRateB}% / C: ${answerData.survivalRateC}%`;
+              console.log(answerData.survivalRateD);
+              if (
+                answerData.survivalRateD !== null &&
+                answerData.survivalRateD !== undefined
+              ) {
+                survivalText += ` / D: ${answerData.survivalRateD}%`;
+              }
+              survivalRateElement.textContent = survivalText;
+
+              answerContainer.style.display = "block"; // **回答を表示**
+            } catch (error) {
+              explanationElement.textContent = "回答の取得に失敗しました";
+              survivalRateElement.textContent = "";
+              answerContainer.style.display = "block";
+              console.error(error);
+            }
+          });
+        } catch (error) {
+          questionElement.textContent = "質問の取得に失敗しました";
+          console.error(error);
+        }
+      });
+    </script>
   </body>
 </html>
