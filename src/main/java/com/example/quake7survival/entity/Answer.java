@@ -28,7 +28,7 @@ public class Answer {
     private int survivalRateC;
 
     @Column(name = "survival_rate_D")
-    private int survivalRateD;
+    private Integer survivalRateD;
 
     public Long getId() {
         return id;
@@ -78,11 +78,11 @@ public class Answer {
         this.survivalRateC = survivalRateC;
     }
 
-    public int getSurvivalRateD() {
+    public Integer getSurvivalRateD() {
         return survivalRateD;
     }
 
-    public void setSurvivalRateD(int survivalRateD) {
+    public void setSurvivalRateD(Integer survivalRateD) {
         this.survivalRateD = survivalRateD;
     }
 }
